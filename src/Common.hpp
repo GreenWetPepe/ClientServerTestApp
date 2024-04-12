@@ -28,7 +28,6 @@ namespace ClientStates
 {
     const int NOT_REGISTERED = 0;
     const int MAIN = 1;
-    const int DEALS_EDITING = 2;
 }
 
 namespace ServerResponses

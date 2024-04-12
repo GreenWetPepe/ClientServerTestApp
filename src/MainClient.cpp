@@ -111,17 +111,12 @@ std::string FormDealRequest(int dealType)
     if (dealType == DealType::BUY) std::cout << "купить: ";
     else if (dealType == DealType::SELL) std::cout << "продать: ";
 
-    std::string ans;
-    std::cin >> ans;
-
-    unsigned int requiredQuantity;
-    try
+    int requiredQuantity;
+    std::cin >> requiredQuantity;
+    if (!std::cin)
     {
-        requiredQuantity = std::stoi(ans);
-    }
-    catch(const std::exception& e)
-    {
-        std::cout << "Введите целое число\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return "";
     }
     
@@ -131,15 +126,12 @@ std::string FormDealRequest(int dealType)
 
     std::cout << "Выберите кол-во оплаты за единицу: ";
 
-    std::cin >> ans;
-    unsigned int requiredPayment;
-    try
+    int requiredPayment;
+    std::cin >> requiredPayment;
+    if (!std::cin)
     {
-        requiredPayment = std::stoi(ans);
-    }
-    catch(const std::exception& e)
-    {
-        std::cout << "Введите целое число\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return "";
     }
     if (requiredPayment <= 0) return "";
@@ -175,6 +167,11 @@ int main()
                          << std::endl;
                 int userChoice;
                 std::cin >> userChoice;
+                if (!std::cin)
+                {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
 
                 switch (userChoice)
                 {
@@ -200,7 +197,7 @@ int main()
                     exit(0);
                     break;
                 default:
-                    std::cout << "Unknown menu option\n" << std::endl;
+                    std::cout << "Неизвестная опция\n" << std::endl;
                     break;
                 }
             }
@@ -222,6 +219,11 @@ int main()
 
                 short menu_option_num;
                 std::cin >> menu_option_num;
+                if (!std::cin)
+                {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
                 switch (menu_option_num)
                 {
                     case 1:
@@ -286,7 +288,7 @@ int main()
                     }
                     default:
                     {
-                        std::cout << "Unknown menu option\n" << std::endl;
+                        std::cout << "Неизвестная опция\n" << std::endl;
                         break;
                     }
                 }

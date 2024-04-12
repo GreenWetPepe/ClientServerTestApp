@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../src/Core.cpp"
+#include "Core.h"
 
 TEST(TestCoreDealsProcess, DealProcessingWithoutTransaction)
 {
@@ -12,10 +12,10 @@ TEST(TestCoreDealsProcess, DealProcessingWithoutTransaction)
     core.AddDeal("2", "1 20 50");
 
     core.ProcessLastDeal();
-    ASSERT_TRUE(core.getDeal(0)->getRequiredQuantity() == 30);
-    ASSERT_TRUE(core.getDeal(1)->getRequiredQuantity() == 20);
-    ASSERT_TRUE(core.getUser("1")->getUsdBalance() == 0);
-    ASSERT_TRUE(core.getUser("2")->getUsdBalance() == 0);
+    ASSERT_TRUE(core.GetDeal(0)->getRequiredQuantity() == 30);
+    ASSERT_TRUE(core.GetDeal(1)->getRequiredQuantity() == 20);
+    ASSERT_TRUE(core.GetUser("1")->getUsdBalance() == 0);
+    ASSERT_TRUE(core.GetUser("2")->getUsdBalance() == 0);
 }
 
 TEST(TestCoreDealsProcess, DealProcessingWithSameType)
@@ -28,10 +28,10 @@ TEST(TestCoreDealsProcess, DealProcessingWithSameType)
     core.AddDeal("2", "1 20 50");
 
     core.ProcessLastDeal();
-    ASSERT_TRUE(core.getDeal(0)->getRequiredQuantity() == 30);
-    ASSERT_TRUE(core.getDeal(1)->getRequiredQuantity() == 20);
-    ASSERT_TRUE(core.getUser("1")->getUsdBalance() == 0);
-    ASSERT_TRUE(core.getUser("2")->getUsdBalance() == 0);
+    ASSERT_TRUE(core.GetDeal(0)->getRequiredQuantity() == 30);
+    ASSERT_TRUE(core.GetDeal(1)->getRequiredQuantity() == 20);
+    ASSERT_TRUE(core.GetUser("1")->getUsdBalance() == 0);
+    ASSERT_TRUE(core.GetUser("2")->getUsdBalance() == 0);
 }
 
 TEST(TestCoreDealsProcess, ComparableDealsFromSameUser)
@@ -43,7 +43,7 @@ TEST(TestCoreDealsProcess, ComparableDealsFromSameUser)
     core.AddDeal("1", "1 20 30");
 
     core.ProcessLastDeal();
-    ASSERT_TRUE(core.getDeal(0)->getRequiredQuantity() == 30);
+    ASSERT_TRUE(core.GetDeal(0)->getRequiredQuantity() == 30);
 }
 
 TEST(TestCoreDealsProcess, DealFullExecution)
@@ -56,11 +56,11 @@ TEST(TestCoreDealsProcess, DealFullExecution)
     core.AddDeal("2", "1 20 30");
 
     core.ProcessLastDeal();
-    ASSERT_TRUE(core.getDealsCount() == 0);
-    ASSERT_TRUE(core.getUser("1")->getRubBalance() == -20 * 45);
-    ASSERT_TRUE(core.getUser("1")->getUsdBalance() == 20);
-    ASSERT_TRUE(core.getUser("2")->getRubBalance() == 20 * 45);
-    ASSERT_TRUE(core.getUser("2")->getUsdBalance() == -20);
+    ASSERT_TRUE(core.GetDealsCount() == 0);
+    ASSERT_TRUE(core.GetUser("1")->getRubBalance() == -20 * 45);
+    ASSERT_TRUE(core.GetUser("1")->getUsdBalance() == 20);
+    ASSERT_TRUE(core.GetUser("2")->getRubBalance() == 20 * 45);
+    ASSERT_TRUE(core.GetUser("2")->getUsdBalance() == -20);
 }
 
 TEST(TestCoreDealsProcess, DealPartialExecution)
@@ -73,10 +73,10 @@ TEST(TestCoreDealsProcess, DealPartialExecution)
     core.AddDeal("2", "1 20 30");
 
     core.ProcessLastDeal();
-    ASSERT_TRUE(core.getDealsCount() == 1);
-    ASSERT_TRUE(core.getDeal(0)->getRequiredQuantity() == 10);
-    ASSERT_TRUE(core.getUser("1")->getUsdBalance() == 10);
-    ASSERT_TRUE(core.getUser("2")->getUsdBalance() == -10);
+    ASSERT_TRUE(core.GetDealsCount() == 1);
+    ASSERT_TRUE(core.GetDeal(0)->getRequiredQuantity() == 10);
+    ASSERT_TRUE(core.GetUser("1")->getUsdBalance() == 10);
+    ASSERT_TRUE(core.GetUser("2")->getUsdBalance() == -10);
 }
 
 TEST(TestCoreDealsProcess, PartialDealWithMultipleUsers)
@@ -91,11 +91,11 @@ TEST(TestCoreDealsProcess, PartialDealWithMultipleUsers)
     core.AddDeal("3", "1 25 61");
 
     core.ProcessLastDeal();
-    ASSERT_TRUE(core.getDealsCount() == 1);
-    ASSERT_TRUE(core.getDeal(0)->getRequiredQuantity() == 5);
-    ASSERT_TRUE(core.getUser("1")->getUsdBalance() == 5);
-    ASSERT_TRUE(core.getUser("2")->getUsdBalance() == 20);
-    ASSERT_TRUE(core.getUser("3")->getUsdBalance() == -25);
+    ASSERT_TRUE(core.GetDealsCount() == 1);
+    ASSERT_TRUE(core.GetDeal(0)->getRequiredQuantity() == 5);
+    ASSERT_TRUE(core.GetUser("1")->getUsdBalance() == 5);
+    ASSERT_TRUE(core.GetUser("2")->getUsdBalance() == 20);
+    ASSERT_TRUE(core.GetUser("3")->getUsdBalance() == -25);
 }
 
 
